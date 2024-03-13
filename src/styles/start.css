@@ -8,7 +8,7 @@
     max-width: 100%;
     height: auto;
   }
-  .App {
+  .start {
     min-height: 100vh;
     width: 85vw;
     max-width: 1900px;
@@ -167,10 +167,10 @@
     font-size: 3rem;
     margin-right: 1rem;
   }
-  .contact-page-wrapper h1 {
+  .contact-page-wrstarter h1 {
     max-width: 900px !important;
   }
-  .contact-page-wrapper {
+  .contact-page-wrstarter {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,7 +195,7 @@
     font-size: 1.3rem;
     padding: 0.5rem 1rem;
   }
-  .footer-wrapper {
+  .footer-wrstarter {
     margin: 6rem 0rem;
     display: flex;
     margin-top: 10rem;
@@ -260,7 +260,7 @@
   .testimonial-section-bottom h2 {
     margin-top: 1.5rem;
   }
-  .work-section-wrapper {
+  .work-section-wrstarter {
     margin-top: 15rem;
   }
   .work-section-top p {
@@ -386,7 +386,7 @@
     .about-section-image-container {
       margin-right: 0rem !important;
     }
-    .work-section-wrapper {
+    .work-section-wrstarter {
       margin-top: 5rem !important;
     }
     .work-section-bottom {
@@ -406,7 +406,7 @@
       margin-bottom: 0.8rem !important;
       text-align: center;
     }
-    .footer-wrapper {
+    .footer-wrstarter {
       flex-direction: column;
     }
     .footer-section-two {
@@ -416,7 +416,7 @@
     .footer-section-columns {
       margin: 1rem 0rem;
     }
-    .App {
+    .start {
       max-width: 95vw;
     }
   }

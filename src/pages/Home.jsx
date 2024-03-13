@@ -1,8 +1,9 @@
 import React from "react";
 import BannerBackground from "../Assets/home-banner-background.png";
 import BannerImage from "../Assets/home-banner-image.png";
-import Navbar from "./Navbar";
+import Navbar from "../Components/Navbar";
 import { FiArrowRight } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   return (
