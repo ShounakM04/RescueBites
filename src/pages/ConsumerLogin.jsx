@@ -28,11 +28,7 @@ function LoginPage() {
 
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="text" placeholder="Username" />
-            </div>
-            <div className="input-field">
-              <FontAwesomeIcon icon={faEnvelope} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="email" placeholder="Email" />
+              <input className='LoginInput' type="tel" placeholder="Mobile Number" />
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faLock} className='my-auto mx-auto'/>
@@ -55,16 +51,25 @@ function LoginPage() {
             <h2 className="title">Sign up</h2>
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="text" placeholder="Username" />
+              <input className='LoginInput' type="text" placeholder="Name" />
             </div>
             <div className="input-field">
-              <FontAwesomeIcon icon={faEnvelope} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="email" placeholder="Email" />
+              <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
+              <input className='LoginInput' type="tel" placeholder="Contact" />
+            </div>
+            <div className="input-field">
+              <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
+              <input className='LoginInput' type="email" placeholder="Mail" />
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faLock} className='my-auto mx-auto'/>
+              <input className='LoginInput' type="pincode" placeholder="Pincode" />
+            </div>
+            <div className="input-field">
+              <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
               <input className='LoginInput' type="password" placeholder="Password" />
             </div>
+ 
             <button className='btn'>Sign Up</button>
             <p className="social-text loginp">Or Sign up with social platforms</p>
             <div className="social-media">
