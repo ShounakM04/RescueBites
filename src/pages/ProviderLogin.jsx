@@ -14,6 +14,9 @@ function LoginPage() {
   const [mail, setMail] = useState('')
   const [pincode, setPincode] = useState('');
   const [password, setPassword] = useState('');
+  const [signInName, setSignInName] = useState('');
+  const [signInEmail, setSignInEmail] = useState('');
+  const [signInPassword, setSignInPassword] = useState('');
 
   const handleSignUpClick = () => {
     setIsSignUpMode(true);
@@ -23,7 +26,7 @@ function LoginPage() {
     setIsSignUpMode(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignUp= async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/provider_signup',{
@@ -35,6 +38,23 @@ function LoginPage() {
       console.error('Error submitting form:', error);
     }
   };
+
+  const handleSignIn= async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3001/provider_signin', {
+        name: signInName,
+        email: signInEmail,
+        password: signInPassword,
+      });
+      console.log(response.data);
+      alert('Signin Successful');
+    } catch (error) {
+      console.error('Error signing in:', error);
+      alert('Signin failed. Please try again.');
+    }
+  };
+  
   
 
   return (
@@ -42,23 +62,24 @@ function LoginPage() {
     <div className={`loginContainer ${isSignUpMode ? 'sign-up-mode' : ''}`}>
       <div className="forms-container">
         <div className="signin-signup">
-          <form action="#" className="sign-in-form loginForm">
+          <form action="#" className="sign-in-form loginForm" onSubmit={handleSignIn}>
             <h2 className="title">Sign in</h2>
 
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="text" placeholder="Name" />
+              <input className='LoginInput' type="text" placeholder="Name" value={signInName} onChange={(e) => setSignInName(e.target.value)} />
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faEnvelope} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="email" placeholder="Email" />
+              <input className='LoginInput' type="email" placeholder="Email" value={signInEmail} onChange={(e) => setSignInEmail(e.target.value)} />
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faLock} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="password" placeholder="Password" />
+              <input className='LoginInput' type="password" placeholder="Password" value={signInPassword} onChange={(e) => setSignInPassword(e.target.value)}/>
             </div>
-            <button className='btn'>Sign In</button>
-           
+            
+            <button className='btn' type="submit">Sign In</button>
+            
             <p className="social-text loginp"> Sign in with social platforms</p>
             <div className="social-media">
               
@@ -70,7 +91,8 @@ function LoginPage() {
               </a>
             </div>
           </form>
-          <form action="#" className="sign-up-form loginForm">
+
+          <form action="#" className="sign-up-form loginForm" onSubmit={handleSignUp}>
             <h2 className="title">Sign up</h2>
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
@@ -93,11 +115,11 @@ function LoginPage() {
               <input className='LoginInput' type="number" placeholder="Pincode" onChange={(e)=>{setPincode(e.target.value)}} value={pincode}/>
             </div>
             <div className="input-field">
-              <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
+              <FontAwesomeIcon icon={faLock} className='my-auto mx-auto'/>
               <input className='LoginInput' type="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} value={password}/>
             </div>
  
-            <button className='btn' onClick={handleSubmit}>Sign Up</button>
+            <button className='btn' type="submit">Sign Up</button>
             <p className="social-text loginp">Or Sign up with social platforms</p>
             <div className="social-media">
              
@@ -123,7 +145,7 @@ function LoginPage() {
               Sign up
               </button>
           </div>
-          <img src="/img/dogLogin1.svg" class="image" alt="" />
+          <img src="/img/dogLogin1.svg" className="image" alt="" />
         </div>
         <div className="panel right-panel">
           <div className="content">
@@ -136,7 +158,7 @@ function LoginPage() {
               Sign in
             </button>
           </div>
-          <img src="/img/dogLogin.svg" class="image" alt="" />
+          <img src="/img/dogLogin.svg" className="image" alt="" />
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@ app.post('/consumer_signin', async (req, res) => {
 });
 
 app.post('/provider_signup', async(req,res)=>{
-  const { name, location, contact, mail, pincode, password} = req.body;
+  const { name, address, mobile_no, mail, pincode, password} = req.body;
   try{
       const result = await db.query("INSERT INTO provider(name, address, mobile_no, mail, pincode, password)VALUES($1, $2, $3, $4, $5, $6) RETURNING *",[name, address, mobile_no, mail, pincode, password]);
       res.status(201).json({message:"User Created Successfully", user:result.rows[0]})
@@ -58,6 +58,22 @@ app.post('/provider_signup', async(req,res)=>{
   catch(err){
       console.log(err);
       res.status(500).json({error:"Internal Server Error"});
+  }
+});
+
+app.post('/provider_signin', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const result = await db.query("SELECT * FROM provider WHERE name = $1 AND mail = $2 AND password = $3", [name, email, password]);
+    if (result.rows.length === 0) {
+      res.status(401).json({ error: "Invalid credentials" });
+    } else {
+      res.status(200).json({ message: "Signin Successful", user: result.rows[0] });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
