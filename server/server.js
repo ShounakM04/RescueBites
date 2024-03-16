@@ -1,6 +1,9 @@
-const express = require('express');
-const pg = require('pg');
-const cors = require('cors');
+import express from 'express';
+import pg from 'pg';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+
+
 
 const db = new pg.Client({
   user: "postgres",
@@ -18,78 +21,46 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
-9
-app.post("/s_signup", (req, res) => {
-  const { id, city, pass } = req.body;
-  db.query("INSERT INTO seller (seller_id, seller_city, pass) VALUES ($1, $2, $3)", [id, city, pass], (err, result) => {
-    if (err) {
-      console.error("Error inserting seller:", err.stack);
-      return res.status(500).send({ error: "Error signing up" }); 
-    }
-    res.status(200).send("Successfully signed up");
-  });
+
+app.post('/consumer_signup', async(req,res)=>{
+  const { mobile_no, name, mail, pincode, password} = req.body;
+  try{
+      const result = await db.query("INSERT INTO consumer(mobile_no, name, mail, pincode, password)VALUES($1, $2, $3, $4, $5) RETURNING *",[mobile_no, name, mail, pincode, password]);
+      res.status(201).json({message:"User Created Successfully", user:result.rows[0]})
+  }
+  catch(err){
+      console.log(err);
+      res.status(500).json({error:"Internal Server Error"});
+  }
 });
 
-
-app.post("/s_signin", (req, res) => {
-  const { id, pass } = req.body;
-  console.log("printitng ",id , pass);
-  db.query("SELECT * FROM seller WHERE seller_id = $1", [id], (err, result) => {
-    if (err) {
-      console.error("Error retrieving manufacturer:", err.stack);
-      return res.status(500).send({ error: "Error signing in" }); 
+app.post('/consumer_signin', async (req, res) => {
+  const { mobile_no, password } = req.body;
+  try {
+    const result = await db.query("SELECT * FROM consumer WHERE mobile_no = $1 AND password = $2", [mobile_no, password]);
+    if (result.rows.length === 0) {
+      res.status(401).json({ error: "Invalid credentials" });
+    } else {
+      res.status(200).json({ message: "Signin Successful", user: result.rows[0] });
     }
-    const seller = result.rows[0];
-    if (!seller || seller.pass != pass) {
-      return res.status(401).send("Invalid credentials");
-    }
-      return res.status(200).send("1");
-  });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-app.post("/m_signup", (req, res) => {
-  const { id, brand, city, pass } = req.body;
-  db.query("INSERT INTO manufacturer (manuf_id, manuf_brand, manuf_city, pass) VALUES ($1, $2, $3, $4)", [id, brand, city, pass], (err, result) => {
-    if (err) {
-      console.error("Error inserting manufacturer:", err.stack);
-      return res.status(500).send({ error: "Error signing up" });
-    }
-    res.status(200).send("Successfully signed up");
-  });
+app.post('/provider_signup', async(req,res)=>{
+  const { name, location, contact, mail, pincode, password} = req.body;
+  try{
+      const result = await db.query("INSERT INTO provider(name, address, mobile_no, mail, pincode, password)VALUES($1, $2, $3, $4, $5, $6) RETURNING *",[name, address, mobile_no, mail, pincode, password]);
+      res.status(201).json({message:"User Created Successfully", user:result.rows[0]})
+  }
+  catch(err){
+      console.log(err);
+      res.status(500).json({error:"Internal Server Error"});
+  }
 });
 
-app.post("/m_signin", (req, res) => {
-  const { id, pass } = req.body;
-  db.query("SELECT * FROM manufacturer WHERE manuf_id = $1", [id], (err, result) => {
-    if (err) {
-      console.error("Error retrieving manufacturer:", err.stack);
-      return res.status(500).send({ error: "Error signing in" }); 
-    }
-    const manufacturer = result.rows[0];
-    if (!manufacturer || manufacturer.pass !== pass) {
-      return res.status(401).send("Invalid credentials");
-    }
-    res.status(200).send("Successfully signed in");
-  });
-});
-
-app.post("/brand", (req,res) => {
-  const { id } = req.body;
-  db.query("SELECT * FROM manufacturer WHERE manuf_id = $1", [ id ], (err, result) => 
-  {
-      if(err)
-      {
-          console.error("Error retrieving data", err.stack);
-          return res.status(500).send({error : "error retrieving brand"});
-      }
-      else{
-          const resp = result.rows[0];
-          
-          return res.status(200).send(resp);
-      }
-  });
-  
-});
 
 
 app.listen(port, () => {

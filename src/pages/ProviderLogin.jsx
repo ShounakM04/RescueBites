@@ -3,10 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import '../styles/Login.css'
+import axios from 'axios';
 
 
 function LoginPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [mobile_no, setMobile_no] = useState('');
+  const [mail, setMail] = useState('')
+  const [pincode, setPincode] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSignUpClick = () => {
     setIsSignUpMode(true);
@@ -16,6 +23,18 @@ function LoginPage() {
     setIsSignUpMode(false);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3001/provider_signup',{
+        name, address, mobile_no, mail, pincode, password,
+      });
+      console.log(response.data);
+      alert('Signup Successful')
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
   
 
   return (
@@ -55,30 +74,30 @@ function LoginPage() {
             <h2 className="title">Sign up</h2>
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="text" placeholder="Name" />
+              <input className='LoginInput' type="text" placeholder="Name" onChange={(e)=>{setName(e.target.value)}} value={name}/>
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faEnvelope} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="text" placeholder="Location" />
+              <input className='LoginInput' type="text" placeholder="Location" onChange={(e)=>{setAddress(e.target.value)}} value={address}/>
+            </div>
+            <div className="input-field">
+              <FontAwesomeIcon icon={faUser} className='my-auto mx-autconsetContact'/>
+              <input className='LoginInput' type="text" placeholder="tel" onChange={(e)=>{setMobile_no(e.target.value)}} value={mobile_no}/>
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="text" placeholder="Contact" />
-            </div>
-            <div className="input-field">
-              <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="email" placeholder="Mail" />
+              <input className='LoginInput' type="email" placeholder="Mail" onChange={(e)=>{setMail(e.target.value)}} value={mail}/>
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faLock} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="number" placeholder="Pincode" />
+              <input className='LoginInput' type="number" placeholder="Pincode" onChange={(e)=>{setPincode(e.target.value)}} value={pincode}/>
             </div>
             <div className="input-field">
               <FontAwesomeIcon icon={faUser} className='my-auto mx-auto'/>
-              <input className='LoginInput' type="password" placeholder="Password" />
+              <input className='LoginInput' type="password" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} value={password}/>
             </div>
  
-            <button className='btn'>Sign Up</button>
+            <button className='btn' onClick={handleSubmit}>Sign Up</button>
             <p className="social-text loginp">Or Sign up with social platforms</p>
             <div className="social-media">
              
