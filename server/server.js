@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "dbms",
-  password: "",
+  password: "AmPpg@123",
   port: 5432,
 });
 
@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/consumer_signup', async(req,res)=>{
   const { mobile_no, name, mail, pincode, password} = req.body;
+  console.log(mobile_no, name, mail, pincode, password);
   try{
       const result = await db.query("INSERT INTO consumer(mobile_no, name, mail, pincode, password)VALUES($1, $2, $3, $4, $5) RETURNING *",[mobile_no, name, mail, pincode, password]);
       res.status(201).json({message:"User Created Successfully", user:result.rows[0]})
@@ -50,9 +51,11 @@ app.post('/consumer_signin', async (req, res) => {
 });
 
 app.post('/provider_signup', async(req,res)=>{
+  console.log('Hello');
   const { name, address, mobile_no, mail, pincode, password} = req.body;
+  console.log(mobile_no, name, mail, pincode, password);
   try{
-      const result = await db.query("INSERT INTO provider(name, address, mobile_no, mail, pincode, password)VALUES($1, $2, $3, $4, $5, $6) RETURNING *",[name, address, mobile_no, mail, pincode, password]);
+      const result = await db.query("INSERT INTO provider(name, address, mobile_no, mail, password, pincode) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",[name, address, mobile_no, mail, password, pincode]);
       res.status(201).json({message:"User Created Successfully", user:result.rows[0]})
   }
   catch(err){

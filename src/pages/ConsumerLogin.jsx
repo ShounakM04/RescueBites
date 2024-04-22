@@ -27,7 +27,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/consumer_signup',{
-        mobile_no, name, mail, pincode, password,
+        mobile_no, name, mail, pincode, password
       });
       console.log(response.data);
       alert('Signup Successful')

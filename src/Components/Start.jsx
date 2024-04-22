@@ -12,12 +12,12 @@ const AppContainer = () => {
     < >
       <div>
         {/* <Navbar /> */}
-          <Home />
-          <About />
-          <Work />
-          <Testimonial />
-          <Contact />
-        <Footer />
+        <Home />
+    <Work />
+      <About />
+      <Testimonial />
+      <Contact />
+      <Footer />
       </div>
     </ >
   );
