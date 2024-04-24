@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { useNavigate } from "react-router-dom";
 import '../styles/Login.css'
 import axios from 'axios';
+
+
 
 function LoginPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
@@ -14,6 +17,8 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [signInMobileNo, setSignInMobileNo] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSignUpClick = () => {
     setIsSignUpMode(true);
@@ -46,6 +51,7 @@ function LoginPage() {
       console.log(response.data);
       alert('Signin Successful');
       // Perform any additional actions after successful sign-in
+      navigate('/ConsumerRequest');
     } catch (error) {
       console.error('Error signing in:', error);
       alert('Signin failed. Please try again.');

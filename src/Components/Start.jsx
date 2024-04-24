@@ -15,8 +15,8 @@ const AppContainer = () => {
         <Home />
     <Work />
       <About />
-      <Testimonial />
-      <Contact />
+      {/* <Testimonial />
+      <Contact /> */}
       <Footer />
       </div>
     </ >

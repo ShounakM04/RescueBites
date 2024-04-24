@@ -31,8 +31,6 @@ const Work = () => {
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
-        <p className="primary-subheading">Work</p>
-        <h1 className="primary-heading">How It Works</h1>
         <p className="primary-text"></p>
       </div>
       <div className="work-section-bottom">

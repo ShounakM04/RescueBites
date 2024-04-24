@@ -4,6 +4,7 @@ import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import "../styles/Login.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
@@ -16,6 +17,9 @@ function LoginPage() {
   const [signInName, setSignInName] = useState("");
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
+
+
+  const navigate = useNavigate();
 
   const handleSignUpClick = () => {
     setIsSignUpMode(true);
@@ -59,6 +63,7 @@ function LoginPage() {
       );
       console.log(response.data);
       alert("Signin Successful");
+      navigate('/providerdetails')
     } catch (error) {
       console.error("Error signing in:", error);
       alert("Signin failed. Please try again.");

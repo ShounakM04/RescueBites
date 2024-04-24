@@ -15,22 +15,14 @@ const About = () => {
       <div className="about-section-text-container">
         <p className="primary-subheading">About</p>
         <h1 className="primary-heading">
-          Food Is An Important Part Of A Balanced Diet
+        How It Works
         </h1>
         <p className="primary-text">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-          elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+
+        Restaurants can easily notify users about available leftover food that was not served. By participating in our platform, restaurants not only reduce food waste but also contribute to their community.
+        Users can browse available leftover food items from nearby restaurants. It's an opportunity to enjoy delicious meals while helping to combat food waste.
         </p>
-        <p className="primary-text">
-          Non tincidunt magna non et elit. Dolor turpis molestie dui magnis
-          facilisis at fringilla quam.
-        </p>
-        <div className="about-buttons-container">
-          <button className="secondary-button">Learn More</button>
-          <button className="watch-video-button">
-            <BsFillPlayCircleFill /> Watch Video
-          </button>
-        </div>
+        
       </div>
     </div>
   );

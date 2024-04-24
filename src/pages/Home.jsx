@@ -81,14 +81,13 @@ function Home() {
         </div>
         <div className="home-text-section">
           <h1 className="primary-heading">
-            Your Favourite Food Delivered Hot
+          Reduce Food Waste, Feed More People
           </h1>
           <p className="primary-text">
-            Healthy switcher chefs do all the prep work, like peeding, chopping
-            & marinating, so you can cook a fresh food.
+          A platform dedicated to reducing food waste by connecting restaurants with surplus food to users who can benefit from it.
           </p>
           <button className="secondary-button button" onClick={handleClick}>
-            <h2>Order Now <FiArrowRight />{" "}</h2>
+            <h2>Get Started <FiArrowRight />{" "}</h2>
           </button>
         </div>
         <div className="home-image-section">
