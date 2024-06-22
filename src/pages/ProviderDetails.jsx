@@ -11,6 +11,7 @@ import {
 import axios from "axios"; // Import axios
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/providerdetails.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 function BookingForm() {
   const [restoName, setRestoName] = useState("");
@@ -19,21 +20,39 @@ function BookingForm() {
   const [foodName, setFoodName] = useState("");
   const [peopleCount, setPeopleCount] = useState("");
   const [providerId, setProviderId] = useState("");
-
+  const [isFetched, setIsFetched] = useState(false);
   useEffect(() => {
-    fetchProviderId();
+      fetchProviderId();
   }, []);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  // const fetchProviderId = async () => {
+  //   try {
+  //     const response = await axios.post("http://localhost:3001/provider_signup");
+  //     setProviderId(response.data.providerId);
+  //     setIsFetched(true);
+  //     console.log("abcid", response.data.providerId);
+  //   } catch (error) {
+  //     console.error("Error fetching providerId:", error);
+  //     // Handle error if needed
+  //   }
+  // };
 
   const fetchProviderId = async () => {
+    if(!token) navigate('/providerlogin');
     try {
-      // Make a request to fetch the providerId (e.g., after sign up or login)
-      const response = await axios.post("http://localhost:3001/provider_signup");
-      // Assuming the response contains the providerId
+      const response = await axios.get("http://localhost:3001/provider_id", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setProviderId(response.data.providerId);
-      console.log("abcid", response.data.providerId);
+      console.log("ProviderId:", response.data.providerId);
     } catch (error) {
       console.error("Error fetching providerId:", error);
-      // Handle error if needed
+      if (error.response && error.response.status === 401) {
+        navigate("/providerlogin"); // Redirect to login if unauthorized
+      }
     }
   };
 
@@ -53,15 +72,20 @@ function BookingForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("ProviderID",providerId);
     try {
       const response = await axios.post("http://localhost:3001/provider_details", {
         restoName,
         veg,
-        nonVeg,
         foodName,
         peopleCount,
         providerId
-      });
+      },
+      {
+        headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
       if (response.status === 201) {
         alert("Booking submitted successfully");
         setRestoName("");
@@ -74,6 +98,7 @@ function BookingForm() {
         alert("Failed to submit booking");
       }
     } catch (error) {
+      console.log("ProviderID",providerId);
       console.error("Error:", error);
       alert("Failed to submit booking catch");
     }

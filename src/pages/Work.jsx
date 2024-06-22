@@ -15,17 +15,17 @@ const Work = () => {
     {
       image: PickMeals,
       title: "Consumer",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et sagittis duis elementum interdum facilisi bibendum.",
+      // text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et sagittis duis elementum interdum facilisi bibendum.",
     },
     {
       image: ChooseMeals,
       title: "Provider",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
+      // text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
     },
     {
       image: DeliveryMeals,
       title: "Admin",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      // text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
     },
   ];
   return (

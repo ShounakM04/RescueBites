@@ -48,6 +48,7 @@ function LoginPage() {
         mobile_no: signInMobileNo,
         password: signInPassword,
       });
+      localStorage.setItem('token', response.data.token);
       console.log(response.data);
       alert('Signin Successful');
       // Perform any additional actions after successful sign-in
