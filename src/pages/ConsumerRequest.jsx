@@ -21,37 +21,18 @@ const App = () => {
                 }
             });
 
-            // Append current timestamp to each data entry
-            const newData = response.data.map(item => ({ ...item, timestamp: Date.now() }));
-            setData(prevData => [...prevData, ...newData]);
-            console.log("Data fetched successfully");
+            setData(response.data);
+            console.log("response received");
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error("Error fetching providerId:", error);
             setError(error.message);
         }
-    };
-
-    // Function to clear expired data entries
-    const clearExpiredData = () => {
-        const currentTime = Date.now();
-        const updatedData = data.filter(item => (currentTime - item.timestamp) <= (18 * 60 * 60 * 1000)); // Keep entries within 18 hours
-        setData(updatedData);
     };
 
     useEffect(() => {
         fetchData();
     }, []);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            clearExpiredData();
-        }, 3600000); // Check every hour for expired data (adjust as needed)
-
-        return () => clearInterval(interval);
-    }, [data]);
-
     const navigate = useNavigate();
-
     return (
         <div>
             <h1>Consumer Requests</h1>

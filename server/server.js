@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "dbms",
-  password: "",
+  password: "Surya@260604",
   port: 5432,
 });
 
@@ -156,6 +156,17 @@ app.get('/ConsumerRequest', verifyToken, (req, res) => {
     res.send(result.rows);
   });
 });
+
+app.post('/update_count', verifyToken,(req,res)=>{
+  const {food_id, count} = req.body;
+  db.query('UPDATE foodDetails SET people_count = people_count -$1 WHERE food_id = $2 RETURNING people_count',[count,food_id], (err,result)=>{
+    if(err){
+      console.error('Error updating people count', err.stack);
+      return res.status(500).send({ error: 'Error updating people count' });
+    }
+    res.status(200).send(result.rows[0]);
+  })
+})
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
