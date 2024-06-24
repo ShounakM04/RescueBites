@@ -138,8 +138,14 @@ app.get('/provider_id',verifyToken, async(req,res)=>{
 
 app.post('/provider_details', verifyToken, async (req, res) => {
   const { restoName, veg, foodName, peopleCount, providerId } = req.body;
+  const expirationTime = new Date();
+  expirationTime.setSeconds(expirationTime.getSeconds() + 20);
+
   try {
-    const result = await db.query("INSERT INTO foodDetails (resto_name, veg, food_name, people_count, provider_id) VALUES ($1, $2, $3, $4, $5) RETURNING *", [restoName, veg, foodName, peopleCount, providerId]);
+    const result = await db.query(
+      "INSERT INTO foodDetails (resto_name, veg, food_name, people_count, provider_id, expiration_time) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [restoName, veg, foodName, peopleCount, providerId, expirationTime]
+    );
     res.status(201).json({ message: "Data inserted successfully", data: result.rows[0] });
   } catch (err) {
     console.log(err);
@@ -167,6 +173,50 @@ app.post('/update_count', verifyToken,(req,res)=>{
     res.status(200).send(result.rows[0]);
   })
 })
+
+
+async function checkExpiredRequests() {
+  try {
+    const currentTime = new Date();
+    const result = await db.query(
+      "SELECT * FROM foodDetails WHERE expiration_time <= $1",
+      [currentTime]
+    );
+    
+    if (result.rows.length > 0) {
+      const insertPromises = result.rows.map(async (row) => {
+        const { food_id, resto_name, veg, food_name, people_count, provider_id, expiration_time } = row;
+        try {
+          // Insert into foodDetailsHistory
+          await db.query(
+            "INSERT INTO foodDetailsHistory (food_id, resto_name, veg, food_name, people_count, provider_id, expiration_time, request_time) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP)",
+            [food_id, resto_name, veg, food_name, people_count, provider_id, expiration_time]
+          );
+
+          // Delete from foodDetails
+          await db.query(
+            "DELETE FROM foodDetails WHERE food_id = $1",
+            [food_id]
+          );
+
+          // console.log(`Moved expired request (food_id: ${food_id}) to history`);
+        } catch (err) {
+          // console.error(`Error moving expired request (food_id: ${food_id}) to history:`, err);
+        }
+      });
+
+      await Promise.all(insertPromises);
+      // console.log(`${result.rows.length} expired requests moved to history`);
+    } else {
+      // console.log('No expired requests found');
+    }
+  } catch (err) {
+    console.error('Error checking/moving expired requests:', err);
+  }
+}
+
+// Run the check every 10 seconds for testing (adjust as needed)
+setInterval(checkExpiredRequests, 10 * 1000);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

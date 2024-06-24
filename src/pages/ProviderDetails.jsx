@@ -8,9 +8,9 @@ import {
   FormGroup,
   FormCheck,
 } from "react-bootstrap";
-import axios from "axios"; // Import axios
+import axios from "axios"; 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/providerdetails.css"; // Import the CSS file
+import "../styles/providerdetails.css";
 import { useNavigate } from "react-router-dom";
 
 function BookingForm() {
@@ -20,23 +20,14 @@ function BookingForm() {
   const [foodName, setFoodName] = useState("");
   const [peopleCount, setPeopleCount] = useState("");
   const [providerId, setProviderId] = useState("");
-  const [isFetched, setIsFetched] = useState(false);
-  useEffect(() => {
-      fetchProviderId();
-  }, []);
+  const [expirationTime, setExpirationTime] = useState(null);
   const navigate = useNavigate();
+
   const token = localStorage.getItem('token');
-  // const fetchProviderId = async () => {
-  //   try {
-  //     const response = await axios.post("http://localhost:3001/provider_signup");
-  //     setProviderId(response.data.providerId);
-  //     setIsFetched(true);
-  //     console.log("abcid", response.data.providerId);
-  //   } catch (error) {
-  //     console.error("Error fetching providerId:", error);
-  //     // Handle error if needed
-  //   }
-  // };
+
+  useEffect(() => {
+    fetchProviderId();
+  }, [token]);
 
   const fetchProviderId = async () => {
     if(!token) navigate('/providerlogin');
@@ -51,7 +42,7 @@ function BookingForm() {
     } catch (error) {
       console.error("Error fetching providerId:", error);
       if (error.response && error.response.status === 401) {
-        navigate("/providerlogin"); // Redirect to login if unauthorized
+        navigate("/providerlogin");
       }
     }
   };
@@ -72,7 +63,6 @@ function BookingForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("ProviderID",providerId);
     try {
       const response = await axios.post("http://localhost:3001/provider_details", {
         restoName,
@@ -83,9 +73,9 @@ function BookingForm() {
       },
       {
         headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (response.status === 201) {
         alert("Booking submitted successfully");
         setRestoName("");
@@ -93,15 +83,36 @@ function BookingForm() {
         setNonVeg(false);
         setFoodName("");
         setPeopleCount("");
-      }
-      else {
+        setExpirationTime(response.data.data.expiration_time);
+      } else {
         alert("Failed to submit booking");
       }
     } catch (error) {
-      console.log("ProviderID",providerId);
       console.error("Error:", error);
-      alert("Failed to submit booking catch");
+      alert("Failed to submit booking");
     }
+  };
+
+  const renderCountdown = () => {
+    if (!expirationTime) return null;
+
+    const currentTime = new Date();
+    const remainingTime = new Date(expirationTime) - currentTime;
+    if (remainingTime <= 0) {
+      return <p>Request expired.</p>;
+    }
+
+    const seconds = Math.floor((remainingTime / 1000) % 60);
+    const minutes = Math.floor((remainingTime / 1000 / 60) % 60);
+    const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+
+    return (
+      <div>
+        <p>Time remaining:</p>
+        <p>{days} days, {hours} hours, {minutes} minutes, {seconds} seconds</p>
+      </div>
+    );
   };
 
   return (
