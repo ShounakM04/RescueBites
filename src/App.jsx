@@ -5,6 +5,7 @@ import Start from "./Components/Start";
 import ProviderLogin from "./pages/ProviderLogin"
 import ProviderDetails from "./pages/ProviderDetails";
 import ConsumerRequest from "./pages/ConsumerRequest";
+import Dashboard from "./pages/ProviderDashboard";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route path="/providerlogin" element={<ProviderLogin />} />
           <Route path="/providerdetails" element={<ProviderDetails />} />
           <Route path="/ConsumerRequest" element={<ConsumerRequest />} />
+          <Route path="/providerdashboard" element={<Dashboard/>} />
+
 
 
         </Routes>

@@ -34,8 +34,28 @@ const comparePassword = async (password, hash) => {
 };
 
 const generateToken = (user) => {
-  return jwt.sign({ id: user.id, mobile_no: user.mobile_no, name: user.name }, jwtSecret, { expiresIn: '1h' });
+  return jwt.sign({ id: user.id, mobile_no: user.mobile_no, name: user.name, pincode: user.pincode }, jwtSecret, { expiresIn: '1h' });
 };
+
+
+// const verifyToken = (req, res, next) => {
+//   const authHeader = req.headers['authorization'];
+//   if (!authHeader) {
+//     return res.status(403).json({ error: 'No token provided' });
+//   }
+//   const token = authHeader.split(' ')[1]; 
+//   if (!token) {
+//     return res.status(403).json({ error: 'No token provided' });
+//   }
+//   jwt.verify(token, jwtSecret, (err, decoded) => {
+//     if (err) {
+//       return res.status(500).json({ error: 'Failed to authenticate token' });
+//     }
+//     req.userId = decoded.id;
+//     next();
+//   });
+// };
+
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -50,10 +70,16 @@ const verifyToken = (req, res, next) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to authenticate token' });
     }
-    req.userId = decoded.id;
+    if (decoded.id) {
+      req.userId = decoded.id; // Use userId if available
+    }
+    if (decoded.mobile_no) {
+      req.userMobileNo = decoded.mobile_no; // Use mobile_no if available
+    }
     next();
   });
 };
+
 
 app.post('/consumer_signup', async (req, res) => {
   const { mobile_no, name, mail, pincode, password } = req.body;
@@ -139,7 +165,7 @@ app.get('/provider_id',verifyToken, async(req,res)=>{
 app.post('/provider_details', verifyToken, async (req, res) => {
   const { restoName, veg, foodName, peopleCount, providerId } = req.body;
   const expirationTime = new Date();
-  expirationTime.setSeconds(expirationTime.getSeconds() + 20);
+  expirationTime.setSeconds(expirationTime.getSeconds() + 200000);
 
   try {
     const result = await db.query(
@@ -153,15 +179,49 @@ app.post('/provider_details', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/ConsumerRequest', verifyToken, (req, res) => {
-  db.query("SELECT * FROM foodDetails", (err, result) => {
-    if (err) {
-      console.error("Error retrieving foodDetails", err.stack);
-      return res.status(500).send({ error: "Error signing in" });
+// app.get('/ConsumerRequest', verifyToken, (req, res) => {
+//   db.query("SELECT * FROM foodDetails", (err, result) => {
+//     if (err) {
+//       console.error("Error retrieving foodDetails", err.stack);
+//       return res.status(500).send({ error: "Error signing in" });
+//     }
+//     res.send(result.rows);
+//   });
+// });
+
+
+app.get('/ConsumerRequest', verifyToken, async (req, res) => {
+  const userMobileNo = req.userMobileNo;
+  
+  try {
+    // Retrieve consumer's pincode
+    const consumerResult = await db.query("SELECT pincode FROM consumer WHERE mobile_no = $1", [userMobileNo]);
+    
+    if (consumerResult.rows.length === 0) {
+      return res.status(404).json({ error: "Consumer not found" });
     }
-    res.send(result.rows);
-  });
+    
+    const consumerPincode = consumerResult.rows[0].pincode;
+    
+    // Query foodDetails based on provider's pincode
+    const foodDetailsQuery = `
+      SELECT fd.*
+      FROM foodDetails fd
+      JOIN provider p ON fd.provider_id = p.id
+      WHERE p.pincode = $1
+    `;
+    
+    const foodDetailsResult = await db.query(foodDetailsQuery, [consumerPincode]);
+    
+    res.json(foodDetailsResult.rows);
+  } catch (err) {
+    console.error("Error retrieving foodDetails", err.stack);
+    res.status(500).json({ error: "Error retrieving foodDetails" });
+  }
 });
+
+
+
 
 app.post('/update_count', verifyToken,(req,res)=>{
   const {food_id, count} = req.body;
