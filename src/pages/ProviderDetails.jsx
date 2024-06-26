@@ -13,8 +13,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/providerdetails.css";
 import { useNavigate } from "react-router-dom";
 
+
 function BookingForm() {
   const [restoName, setRestoName] = useState("");
+  const [error,setError] = useState(false);
   const [veg, setVeg] = useState(false);
   const [nonVeg, setNonVeg] = useState(false);
   const [foodName, setFoodName] = useState("");
@@ -41,6 +43,7 @@ function BookingForm() {
       console.log("ProviderId:", response.data.providerId);
     } catch (error) {
       console.error("Error fetching providerId:", error);
+      setError(true);
       if (error.response && error.response.status === 401) {
         navigate("/providerlogin");
       }
@@ -115,9 +118,12 @@ function BookingForm() {
     );
   };
 
+
+
   return (
     <div id="booking" className="section">
       <div className="section-center">
+        {error &&   navigate('/providerlogin') }
         <Container>
           <Row>
             <Col md={{ span: 7, order: 2 }} xs={{ span: 12, order: 1 }}>

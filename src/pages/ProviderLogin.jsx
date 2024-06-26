@@ -64,8 +64,8 @@ function LoginPage() {
       console.log(response.data);
       alert("Signin Successful");
       localStorage.setItem('token', response.data.token);
-      navigate('/providerdetails')
-      // navigate('/providerdashboard')
+      // navigate('/providerdetails')
+      navigate('/providerdashboard')
 
     } catch (error) {
       console.error("Error signing in:", error);

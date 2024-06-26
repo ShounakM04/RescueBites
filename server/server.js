@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "dbms",
-  password: "",
+  password: "AmPpg@123",
   port: 5432,
 });
 
@@ -165,7 +165,7 @@ app.get('/provider_id',verifyToken, async(req,res)=>{
 app.post('/provider_details', verifyToken, async (req, res) => {
   const { restoName, veg, foodName, peopleCount, providerId } = req.body;
   const expirationTime = new Date();
-  expirationTime.setSeconds(expirationTime.getSeconds() + 200000);
+  expirationTime.setSeconds(expirationTime.getSeconds() + 64800);//timei in seconds
 
   try {
     const result = await db.query(
@@ -188,6 +188,44 @@ app.post('/provider_details', verifyToken, async (req, res) => {
 //     res.send(result.rows);
 //   });
 // });
+
+app.get('/provider_history_curr', verifyToken, async (req, res) => {
+
+  console.log("You are here");
+  const providerId = req.userId;
+  console.log("provider : "+ providerId);
+  try {
+    const result = await db.query("SELECT * FROM foodDetails WHERE provider_id = $1", [providerId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "No food details found for this provider" });
+    }
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Error retrieving food details", err.stack);
+    res.status(500).json({ error: "Error retrieving food details" });
+  }
+});
+
+
+app.get('/provider_history_prev', verifyToken, async (req, res) => {
+
+  console.log("You are here");
+  const providerId = req.userId;
+  console.log("provider : "+ providerId);
+  try {
+    const result = await db.query("SELECT * FROM foodDetailsHistory WHERE provider_id = $1", [providerId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "No food details found for this provider" });
+    }
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Error retrieving food details", err.stack);
+    res.status(500).json({ error: "Error retrieving food details" });
+  }
+});
+
+
+
 
 
 app.get('/ConsumerRequest', verifyToken, async (req, res) => {

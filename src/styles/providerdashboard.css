@@ -1,4 +1,4 @@
-a:focus,a:hover,a{
+.element:focus,.element:hover,a{
     outline:none;
     text-decoration: none;
 }
@@ -41,15 +41,15 @@ li,ul{
     margin-right: 0px;
 }
 
-.login-header .nav-tabs > li.active > a,
-.login-header .nav-tabs > li.active > a:focus,
-.login-header .nav-tabs > li.active > a:hover {
+.login-header .nav-tabs > li.active > .element,
+.login-header .nav-tabs > li.active > .element:focus,
+.login-header .nav-tabs > li.active > .element:hover {
     background-color: transparent;
     border: none;
     color: #fff;
 }
 
-.login-header .nav-tabs > li > a {
+.login-header .nav-tabs > li > .element{
     border: medium none;
     border-radius: 0;
     font-size: 14px;
@@ -67,8 +67,8 @@ li,ul{
     margin-bottom: 0px;
 }
 
-.login-header .nav > li > a:focus,
-.login-header .nav > li > a:hover {
+.login-header .nav > li > .element:focus,
+.login-header .nav > li > .element:hover {
     background: none;
     text-decoration: none;
 }
@@ -233,11 +233,16 @@ li,ul{
     font-size: 14px;
     font-weight: 600;
     padding: 10px 27px 10px 45px;
-    position: relative;
+    position: absolute;
+    right: 0px;
+    top:6vh;
+    /* float: right; */
+    
+    
 }
 
-.header-rightside .nav > li > a:focus,
-.header-rightside .nav > li > a:hover {
+.header-rightside .nav > li > .element:focus,
+.header-rightside .nav > li > .element:hover {
     background: none;
     text-decoration: none;
 }
@@ -348,7 +353,7 @@ header {
     text-align: center;
 }
 
-.navi a {
+.navi .element {
     border-bottom: 1px solid #0d172e;
     border-top: 1px solid #0d172e;
     color: #ffffff;
@@ -378,8 +383,9 @@ header {
 }
 
 .navbar-default {
-    background-color: #ffffff;
-    border-color: #ffffff;
+    /* background-color: #ffffff; */
+    border-color: black;
+    padding: 100px;
 }
 
 .navbar-toggle {
@@ -446,8 +452,7 @@ header {
     float: right;
 }
 .sales h2 {
-    color: #8492af;
-    float: left;
+  
     font-size: 21px;
     font-weight: 600;
     margin: 0;
@@ -469,7 +474,7 @@ header {
 .sales .btn-group.open .dropdown-toggle, .btn.active, .btn:active{
     box-shadow: none;
 }
-.sales .dropdown-menu > a {
+.sales .dropdown-menu > .element {
     color: #0e1a35;
     display: inline-block;
     font-weight: 800;
@@ -480,7 +485,7 @@ header {
 #my-cool-chart svg {
     width: 100%;
 }
-.sales .dropdown-menu > a:hover{
+.sales .dropdown-menu > .element:hover{
     color: #5584FF;   
 }
 .shield-buttons {
@@ -695,4 +700,27 @@ header {
     padding: 16px 0 17px;
     width: 100%;
 }
+}
+
+.navi
+{
+    height: 100vh;
+}
+.element{
+    cursor: pointer;
+    width: 15vw;
+    margin-left: 0;
+
+}
+
+.elemBtn{
+    background-color: transparent;
+    border: none;
+    color: white;
+    /* padding: 100px; */
+    margin-left: 0;
+}
+:hover.element
+{
+    background-color: #243a70;;
 }
