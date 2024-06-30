@@ -5,6 +5,8 @@ import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
@@ -17,7 +19,6 @@ function LoginPage() {
   const [signInName, setSignInName] = useState("");
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -44,9 +45,10 @@ function LoginPage() {
         }
       );
       console.log(response.data);
-      alert("Signup Successful");
+      toast.success("Signup Successful");
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error("Signup Failed");
     }
   };
 
@@ -62,19 +64,18 @@ function LoginPage() {
         }
       );
       console.log(response.data);
-      alert("Signin Successful");
+      toast.success("Signin Successful");
       localStorage.setItem('token', response.data.token);
-      navigate('/providerdetails')
-      // navigate('/providerdashboard')
-
+      navigate('/providerdashboard');
     } catch (error) {
       console.error("Error signing in:", error);
-      alert("Signin failed. Please try again.");
+      toast.error("Invalid Credentials");
     }
   };
 
   return (
     <div className="login_page">
+      <ToastContainer autoClose={2500} />
       <div className={`loginContainer ${isSignUpMode ? "sign-up-mode" : ""}`}>
         <div className="forms-container">
           <div className="signin-signup">
@@ -124,7 +125,6 @@ function LoginPage() {
               </button>
 
               <p className="social-text loginp">
-                {" "}
                 Sign in with social platforms
               </p>
               <div className="social-media">
@@ -155,9 +155,7 @@ function LoginPage() {
                   className="LoginInput"
                   type="text"
                   placeholder="Name"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
+                  onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
               </div>
@@ -170,36 +168,30 @@ function LoginPage() {
                   className="LoginInput"
                   type="text"
                   placeholder="Location"
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                  }}
+                  onChange={(e) => setAddress(e.target.value)}
                   value={address}
                 />
               </div>
               <div className="input-field">
                 <FontAwesomeIcon
                   icon={faUser}
-                  className="my-auto mx-autconsetContact"
+                  className="my-auto mx-auto"
                 />
                 <input
                   className="LoginInput"
-                  type="text"
-                  placeholder="tel"
-                  onChange={(e) => {
-                    setMobile_no(e.target.value);
-                  }}
+                  type="tel"
+                  placeholder="Contact"
+                  onChange={(e) => setMobile_no(e.target.value)}
                   value={mobile_no}
                 />
               </div>
               <div className="input-field">
-                <FontAwesomeIcon icon={faUser} className="my-auto mx-auto" />
+                <FontAwesomeIcon icon={faEnvelope} className="my-auto mx-auto" />
                 <input
                   className="LoginInput"
                   type="email"
                   placeholder="Mail"
-                  onChange={(e) => {
-                    setMail(e.target.value);
-                  }}
+                  onChange={(e) => setMail(e.target.value)}
                   value={mail}
                 />
               </div>
@@ -209,9 +201,7 @@ function LoginPage() {
                   className="LoginInput"
                   type="number"
                   placeholder="Pincode"
-                  onChange={(e) => {
-                    setPincode(e.target.value);
-                  }}
+                  onChange={(e) => setPincode(e.target.value)}
                   value={pincode}
                 />
               </div>
@@ -221,9 +211,7 @@ function LoginPage() {
                   className="LoginInput"
                   type="password"
                   placeholder="Password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
+                  onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
               </div>
@@ -267,7 +255,7 @@ function LoginPage() {
           </div>
           <div className="panel right-panel">
             <div className="content">
-              <h3 className="loginh3">One of us ?</h3>
+              <h3 className="loginh3">One of us?</h3>
               <p className="loginp">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
                 laboriosam ad deleniti.

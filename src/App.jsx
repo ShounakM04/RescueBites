@@ -6,6 +6,13 @@ import ProviderLogin from "./pages/ProviderLogin"
 import ProviderDetails from "./pages/ProviderDetails";
 import ConsumerRequest from "./pages/ConsumerRequest";
 import Dashboard from "./pages/ProviderDashboard";
+import ExistingReq from './pages/ProviderDashboardExistingReq';
+import PreviousReq from './pages/ProviderDashboardPreviousReq';
+
+
+// Rescue Bites
+// PlateRescue
+// Full Plates, Happy Wallets
 
 function App() {
   return (
@@ -18,7 +25,8 @@ function App() {
           <Route path="/providerdetails" element={<ProviderDetails />} />
           <Route path="/ConsumerRequest" element={<ConsumerRequest />} />
           <Route path="/providerdashboard" element={<Dashboard/>} />
-
+          <Route path="/providerdashboardexistingreq" element={<ExistingReq/>} />
+          <Route path="/providerdashboardpreviousreq" element={<PreviousReq />} />
 
 
         </Routes>

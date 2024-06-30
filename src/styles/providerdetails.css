@@ -1,11 +1,12 @@
 .section {
     position: relative;
     height: 100vh;
+    
 }
 
 .section .section-center {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 0;
     right: 0;
     -webkit-transform: translateY(-50%);
@@ -14,19 +15,27 @@
 
 #booking {
     font-family: 'Montserrat', sans-serif;
-    background-image: url('../img/background.jpg');
+    background-image: url('../Assets/home-banner-background.png');
     background-size: cover;
-    background-position: center;
+    background-position:center;
+    /* background-color: #e48f0f;  */
+    height: 100vh; /* Ensure it covers entire viewport */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Use flexbox for vertical alignment */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
 }
 
 #booking::before {
     content: '';
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    top: 0;
-    background: #e48f0f;
+    /* background: rgba(228, 143, 15, 0.9); */
+    z-index: -1;
 }
 
 .booking-form {
@@ -124,6 +133,7 @@
 .booking-cta {
     margin-top: 80px;
     margin-bottom: 30px;
+    color: #fff;
 }
 
 .booking-cta h1 {
@@ -131,9 +141,77 @@
     text-transform: uppercase;
     color: #fff;
     font-weight: 700;
+    margin-bottom: 20px; 
 }
 
 .booking-cta p {
     font-size: 16px;
     color: rgba(255, 255, 255, 0.8);
 }
+
+
+.custom-navbar {
+    background-color: #0e1a35 !important;
+  }
+  
+  .custom-navbar .nav-link,
+  .custom-navbar .navbar-brand {
+    color: white !important;
+  }
+  
+  .custom-navbar .nav-link:hover,
+  .custom-navbar .navbar-brand:hover {
+    color: #ccc !important;
+  }
+  
+  #booking {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .section-center {
+    position: relative;
+    z-index: 1; /* Ensure content is above background */
+    text-align: center; /* Center content inside .section-center */
+}
+  
+  /* Added custom style for Navbar links */
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+  color: #fff !important; /* Change text color to white */
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .navbar-brand:hover {
+  color: #ccc !important; /* Change hover color to light grey */
+}
+
+
+@media (max-width: 768px) {
+    #booking {
+        height: auto; /* Allow content to expand beyond viewport height */
+        min-height: 100vh; /* Ensure minimum height is full viewport height */
+    }
+    .custom-navbar {
+      position: relative; /* Ensure navbar doesn't overlap content */
+      z-index: 1000; /* Ensure navbar is above other content */
+    }
+  
+    .section-center {
+      padding-top: 120px; /* Adjust padding to accommodate navbar height */
+    }
+  
+    .booking-cta {
+      margin-top: 20px; /* Adjust margin for spacing */
+    }
+  
+    .booking-cta h1 {
+      font-size: 32px; /* Adjust font size for smaller screens */
+    }
+  
+    .booking-cta p {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+    
+  }
+  

@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/ConsumerRequestCards.css";
 import axios from "axios";
 
-const ConsumerRequestCards = ({ data }) => {
+const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
   const [visibleData, setVisibleData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [numPeople, setNumPeople] = useState("");
 
   useEffect(() => {
-    // Filter out requests with zero people count and set visible data
-    const filteredData = data.filter(request => request.people_count > 0);
-    setVisibleData(filteredData);
-  }, [data]); // Re-run effect when data changes
+    if (dataType === "consumerRequests") {
+      const filteredData = data.filter(request => request.people_count > 0);
+      setVisibleData(filteredData);
+    } else {
+      setVisibleData(data);
+    }
+  }, [data, dataType]);
 
   const handleBookClick = (request) => {
     setSelectedRequest(request);
@@ -47,7 +50,7 @@ const ConsumerRequestCards = ({ data }) => {
     }
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:3001/update_count",
         {
           food_id: selectedRequest.food_id,
@@ -59,54 +62,42 @@ const ConsumerRequestCards = ({ data }) => {
           },
         }
       );
-      const updatedPeopleCount = response.data.people_count;
 
-      if (updatedPeopleCount < 0) {
-        alert("Failed to update people count: Resulting count is negative.");
-        return;
-      }
-
-      // Fetch updated data from backend
-      const updatedData = await fetchUpdatedData();
-      setVisibleData(updatedData);
+      const updatedPeopleCount = selectedRequest.people_count - numPeopleInt;
+      setVisibleData(prevData =>
+        prevData.map(request =>
+          request.food_id === selectedRequest.food_id
+            ? { ...request, people_count: updatedPeopleCount }
+            : request
+        )
+      );
 
       handleCloseModal();
+      refreshData();
     } catch (error) {
       console.error("Error updating people count:", error);
       alert("Failed to update people count.");
     }
   };
 
-  const fetchUpdatedData = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      throw new Error("No token found");
-    }
-
-    const response = await axios.get("http://localhost:3001/ConsumerRequest", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    // Filter out requests with zero people count
-    const newData = response.data.filter((request) => request.people_count > 0);
-
-    return newData;
-  };
-
   return (
     <div className="card-container">
+      {visibleData.length === 0 && <p>No requests found.</p>}
       {visibleData.map((request, index) => (
         <div className="card" key={index}>
-          <h3>{request.resto_name}</h3>
-          <p>Veg: {request.veg ? "Yes" : "No"}</p>
-          <p>Food Name: {request.food_name}</p>
-          <p>People Count: {request.people_count}</p>
-          <p>
-            <button onClick={() => handleBookClick(request)}>Book</button>
-          </p>
+          <Card.Body>
+            <Card.Title>{request.resto_name}</Card.Title>
+            <Card.Text>
+              Veg: {request.veg ? "Yes" : "No"}<br />
+              Food Name: {request.food_name}<br />
+              People Count: {dataType === "consumerRequests" ? request.people_count : request.booked_count}
+            </Card.Text>
+            {dataType === "consumerRequests" && (
+              <div className="button-container">
+                <Button onClick={() => handleBookClick(request)}>Book</Button>
+              </div>
+            )}
+          </Card.Body>
         </div>
       ))}
 
