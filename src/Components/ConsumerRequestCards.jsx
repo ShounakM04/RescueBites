@@ -12,7 +12,7 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
 
   useEffect(() => {
     if (dataType === "consumerRequests") {
-      const filteredData = data.filter(request => request.people_count > 0);
+      const filteredData = data.filter((request) => request.people_count > 0);
       setVisibleData(filteredData);
     } else {
       setVisibleData(data);
@@ -51,7 +51,7 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
 
     try {
       await axios.post(
-        "https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/update_count",
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/update_count",
         {
           food_id: selectedRequest.food_id,
           count: numPeopleInt,
@@ -64,8 +64,8 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
       );
 
       const updatedPeopleCount = selectedRequest.people_count - numPeopleInt;
-      setVisibleData(prevData =>
-        prevData.map(request =>
+      setVisibleData((prevData) =>
+        prevData.map((request) =>
           request.food_id === selectedRequest.food_id
             ? { ...request, people_count: updatedPeopleCount }
             : request
@@ -88,9 +88,14 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
           <Card.Body>
             <Card.Title>{request.resto_name}</Card.Title>
             <Card.Text>
-              Veg: {request.veg ? "Yes" : "No"}<br />
-              Food Name: {request.food_name}<br />
-              People Count: {dataType === "consumerRequests" ? request.people_count : request.booked_count}
+              Veg: {request.veg ? "Yes" : "No"}
+              <br />
+              Food Name: {request.food_name}
+              <br />
+              People Count:{" "}
+              {dataType === "consumerRequests"
+                ? request.people_count
+                : request.booked_count}
             </Card.Text>
             {dataType === "consumerRequests" && (
               <div className="button-container">

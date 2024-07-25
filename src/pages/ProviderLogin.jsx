@@ -5,8 +5,8 @@ import { faGoogle, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
@@ -34,7 +34,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/provider_signup",
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_signup",
         {
           name,
           address,
@@ -56,7 +56,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/provider_signin",
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_signin",
         {
           name: signInName,
           email: signInEmail,
@@ -65,8 +65,8 @@ function LoginPage() {
       );
       console.log(response.data);
       toast.success("Signin Successful");
-      localStorage.setItem('token', response.data.token);
-      navigate('/providerdashboard');
+      localStorage.setItem("token", response.data.token);
+      navigate("/providerdashboard");
     } catch (error) {
       console.error("Error signing in:", error);
       toast.error("Invalid Credentials");
@@ -173,10 +173,7 @@ function LoginPage() {
                 />
               </div>
               <div className="input-field">
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="my-auto mx-auto"
-                />
+                <FontAwesomeIcon icon={faUser} className="my-auto mx-auto" />
                 <input
                   className="LoginInput"
                   type="tel"
@@ -186,7 +183,10 @@ function LoginPage() {
                 />
               </div>
               <div className="input-field">
-                <FontAwesomeIcon icon={faEnvelope} className="my-auto mx-auto" />
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="my-auto mx-auto"
+                />
                 <input
                   className="LoginInput"
                   type="email"

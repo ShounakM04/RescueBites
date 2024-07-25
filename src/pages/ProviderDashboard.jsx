@@ -45,18 +45,21 @@ const Dashboard = () => {
         throw new Error("No token found");
       }
 
-      const response1 = await axios.get("https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/provider_id", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response1 = await axios.get(
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_id",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // const decodedToken = jwtDecode(token);
       const providerId = response1.id;
       // console.log("while calling : "+ decodedToken);
 
       const response = await axios.get(
-        "https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/provider_history_curr",
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_history_curr",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -93,27 +96,21 @@ const Dashboard = () => {
             <div className="navi">
               <ul>
                 <li className="active">
-                  
-                <button className="elemBtn" onClick={handleHome}>
-                  <div className="element">
-                    <i className="fa fa-home" aria-hidden="true"></i>
-                    <span className="hidden-xs hidden-sm">
-                        Home
-                     
-                    </span>
-                  </div>
+                  <button className="elemBtn" onClick={handleHome}>
+                    <div className="element">
+                      <i className="fa fa-home" aria-hidden="true"></i>
+                      <span className="hidden-xs hidden-sm">Home</span>
+                    </div>
                   </button>
                 </li>
                 <li>
-                <button className="elemBtn" onClick={handleExtReq}>
-                  <div className="element">
-                    <i className="fa fa-tasks" aria-hidden="true"></i>
-                    <span className="hidden-xs hidden-sm">
-                    
+                  <button className="elemBtn" onClick={handleExtReq}>
+                    <div className="element">
+                      <i className="fa fa-tasks" aria-hidden="true"></i>
+                      <span className="hidden-xs hidden-sm">
                         Existing Request
-                    
-                    </span>
-                  </div>
+                      </span>
+                    </div>
                   </button>
                 </li>
                 <li>

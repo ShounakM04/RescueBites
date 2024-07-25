@@ -26,20 +26,23 @@ function BookingForm() {
   const [expirationTime, setExpirationTime] = useState(null);
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchProviderId();
   }, [token]);
 
   const fetchProviderId = async () => {
-    if (!token) navigate('/providerlogin');
+    if (!token) navigate("/providerlogin");
     try {
-      const response = await axios.get("https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/provider_id", {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const response = await axios.get(
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_id",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
       setProviderId(response.data.providerId);
       console.log("ProviderId:", response.data.providerId);
     } catch (error) {
@@ -68,18 +71,21 @@ function BookingForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/provider_details", {
-        restoName,
-        veg,
-        foodName,
-        peopleCount,
-        providerId
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const response = await axios.post(
+        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_details",
+        {
+          restoName,
+          veg,
+          foodName,
+          peopleCount,
+          providerId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
       if (response.status === 201) {
         alert("Booking submitted successfully");
         setRestoName("");
@@ -98,15 +104,17 @@ function BookingForm() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/providerlogin');
+    localStorage.removeItem("token");
+    navigate("/providerlogin");
   };
 
   return (
     <div>
       <Navbar bg="light" expand="lg" className="custom-navbar">
         <Container>
-        <Navbar.Brand as={Link} to="/">RescueBites</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            RescueBites
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
@@ -119,15 +127,16 @@ function BookingForm() {
       </Navbar>
       <div id="booking" className="section">
         <div className="section-center">
-          {error && navigate('/providerlogin')}
+          {error && navigate("/providerlogin")}
           <Container>
             <Row>
               <Col md={{ span: 7, order: 2 }} xs={{ span: 12, order: 1 }}>
                 <div className="booking-cta">
                   <h1>Add Leftover Food Details</h1>
                   <p>
-                    Help Reduce Food Waste
-                    Thank you for participating in our initiative to reduce food waste! Please fill out the details of the leftover food you have available.
+                    Help Reduce Food Waste Thank you for participating in our
+                    initiative to reduce food waste! Please fill out the details
+                    of the leftover food you have available.
                   </p>
                 </div>
               </Col>
