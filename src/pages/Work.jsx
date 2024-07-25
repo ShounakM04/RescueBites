@@ -22,8 +22,11 @@ const Work = () => {
       title: "Provider",
       // text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
     },
-
-
+    {
+      image: DeliveryMeals,
+      title: "Admin",
+      // text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+    },
   ];
   return (
     <div className="work-section-wrapper">
@@ -36,10 +39,10 @@ const Work = () => {
             <a 
               href={
                 data.title == "Consumer"
-                  ? "https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/consumerlogin"
+                  ? "/consumerlogin"
                   : data.title == "Provider"
-                  ? "https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/providerlogin"
-                  : "https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/nothing"
+                  ? "/providerlogin"
+                  : "nothing"
               }
             >
               <div className="info-boxes-img-container">
