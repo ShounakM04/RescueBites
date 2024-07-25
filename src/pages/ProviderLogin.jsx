@@ -251,7 +251,7 @@ function LoginPage() {
                 Sign up
               </button>
             </div>
-            <img src="/img/dogLogin1.svg" className="image" alt="" />
+            {/* <img src="/img/dogLogin1.svg" className="image" alt="" /> */}
           </div>
           <div className="panel right-panel">
             <div className="content">
@@ -268,7 +268,7 @@ function LoginPage() {
                 Sign in
               </button>
             </div>
-            <img src="/img/dogLogin.svg" className="image" alt="" />
+            {/* <img src="/img/dogLogin.svg" className="image" alt="" /> */}
           </div>
         </div>
       </div>
