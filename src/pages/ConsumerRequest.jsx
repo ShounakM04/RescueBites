@@ -24,8 +24,8 @@ const App = () => {
             const pincode = decodedToken.pincode;
 
             const endpoint = showConsumerRequests 
-                ? "https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/ConsumerRequest" 
-                : "https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/current_requests";
+                ? "https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/ConsumerRequest" 
+                : "https://rescue-bite-server-718x284vu-amols-projects-604b6fbf.vercel.app/current_requests";
 
             const response = await axios.get(endpoint, {
                 headers: {
