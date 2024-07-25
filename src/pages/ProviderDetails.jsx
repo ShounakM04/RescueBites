@@ -35,7 +35,7 @@ function BookingForm() {
   const fetchProviderId = async () => {
     if (!token) navigate('/providerlogin');
     try {
-      const response = await axios.get("http://localhost:3001/provider_id", {
+      const response = await axios.get("https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/provider_id", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -68,7 +68,7 @@ function BookingForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/provider_details", {
+      const response = await axios.post("https://rescue-bite-server-pde3wfsa5-amols-projects-604b6fbf.vercel.app/provider_details", {
         restoName,
         veg,
         foodName,
