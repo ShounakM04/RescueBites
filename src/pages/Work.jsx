@@ -3,14 +3,11 @@ import PickMeals from "../Assets/pick-meals-image.png";
 import ChooseMeals from "../Assets/choose-image.png";
 import DeliveryMeals from "../Assets/delivery-image.png";
 
-import { Navigate } from "react-router-dom";
-const handleRedirect = async (req, res) => {
-  try {
-  } catch {
-    alert("Redirect error");
-  }
-};
+import { useNavigate } from "react-router-dom";
+
 const Work = () => {
+  const navigate = useNavigate();
+
   const workInfoData = [
     {
       image: PickMeals,
@@ -28,6 +25,17 @@ const Work = () => {
       // text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
     },
   ];
+
+  const handleNavigation = (title) => {
+    if (title === "Consumer") {
+      navigate("/consumerlogin");
+    } else if (title === "Provider") {
+      navigate("/providerlogin");
+    } else {
+      alert("No navigation route defined for this title");
+    }
+  };
+
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
@@ -36,21 +44,11 @@ const Work = () => {
       <div className="work-section-bottom">
         {workInfoData.map((data) => (
           <div className="work-section-info" key={data.title}>
-            <a 
-              href={
-                data.title == "Consumer"
-                  ? "/consumerlogin"
-                  : data.title == "Provider"
-                  ? "/providerlogin"
-                  : "nothing"
-              }
-            >
-              <div className="info-boxes-img-container">
-                <img src={data.image} alt="" />
-              </div>
+            <div onClick={() => handleNavigation(data.title)} className="info-boxes-img-container" style={{ cursor: 'pointer' }}>
+              <img src={data.image} alt="" />
               <h2>{data.title}</h2>
               <p>{data.text}</p>
-            </a>
+            </div>
           </div>
         ))}
       </div>
