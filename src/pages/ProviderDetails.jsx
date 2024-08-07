@@ -40,6 +40,10 @@ function BookingForm() {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            
+            "Access-Control-Allow-Origin":"*"
+  
+        
           },
         }
       );
@@ -83,6 +87,10 @@ function BookingForm() {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            
+            "Access-Control-Allow-Origin":"*"
+    
+        
           },
         }
       );

@@ -60,6 +60,8 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );

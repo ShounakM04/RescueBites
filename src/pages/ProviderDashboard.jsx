@@ -50,6 +50,8 @@ const Dashboard = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
@@ -63,6 +65,8 @@ const Dashboard = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+
+            "Access-Control-Allow-Origin": "*",
           },
           params: {
             providerId,

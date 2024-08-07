@@ -42,6 +42,12 @@ function LoginPage() {
           mail,
           pincode,
           password,
+          
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin":"*"
+          },
         }
       );
       console.log(response.data);
@@ -61,6 +67,12 @@ function LoginPage() {
           name: signInName,
           email: signInEmail,
           password: signInPassword,
+          
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin":"*"
+          },
         }
       );
       console.log(response.data);

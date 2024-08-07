@@ -39,6 +39,11 @@ function LoginPage() {
           mail,
           pincode,
           password,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
         }
       );
       console.log(response.data);
@@ -57,6 +62,11 @@ function LoginPage() {
         {
           mobile_no: signInMobileNo,
           password: signInPassword,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
         }
       );
       localStorage.setItem("token", response.data.token);

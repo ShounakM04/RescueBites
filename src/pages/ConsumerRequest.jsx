@@ -30,6 +30,9 @@ const App = () => {
       const response = await axios.get(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`,
+          
+            "Access-Control-Allow-Origin": "*",
+       
         },
         params: {
           pincode,
