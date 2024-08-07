@@ -36,14 +36,11 @@ function BookingForm() {
     if (!token) navigate("/providerlogin");
     try {
       const response = await axios.get(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_id",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_id",
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-            
-            "Access-Control-Allow-Origin":"*"
-  
-        
           },
         }
       );
@@ -76,7 +73,7 @@ function BookingForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_details",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_details",
         {
           restoName,
           veg,
@@ -86,11 +83,8 @@ function BookingForm() {
         },
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-            
-            "Access-Control-Allow-Origin":"*"
-    
-        
           },
         }
       );

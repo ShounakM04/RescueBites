@@ -49,20 +49,13 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
       return;
     }
 
-    // "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/update_count"
+    // "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/update_count"
     try {
       await axios.post(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/update_count",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/update_count",
         {
           food_id: selectedRequest.food_id,
           count: numPeopleInt,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-
-            "Access-Control-Allow-Origin": "*",
-          },
         }
       );
 

@@ -32,7 +32,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/consumer_signup",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/consumer_signup",
         {
           mobile_no,
           name,
@@ -42,7 +42,8 @@ function LoginPage() {
         },
         {
           headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -58,15 +59,10 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/consumer_signin",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/consumer_signin",
         {
           mobile_no: signInMobileNo,
           password: signInPassword,
-        },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
         }
       );
       localStorage.setItem("token", response.data.token);

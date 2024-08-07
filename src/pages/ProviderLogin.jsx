@@ -34,7 +34,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_signup",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_signup",
         {
           name,
           address,
@@ -42,12 +42,6 @@ function LoginPage() {
           mail,
           pincode,
           password,
-          
-        },
-        {
-          headers: {
-            "Access-Control-Allow-Origin":"*"
-          },
         }
       );
       console.log(response.data);
@@ -62,17 +56,11 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_signin",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_signin",
         {
           name: signInName,
           email: signInEmail,
           password: signInPassword,
-          
-        },
-        {
-          headers: {
-            "Access-Control-Allow-Origin":"*"
-          },
         }
       );
       console.log(response.data);

@@ -46,13 +46,12 @@ const Dashboard = () => {
       }
 
       const response1 = await axios.get(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_id",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_id",
+
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-            
-            "Access-Control-Allow-Origin":"*"
-         
           },
         }
       );
@@ -62,14 +61,13 @@ const Dashboard = () => {
       // console.log("while calling : "+ decodedToken);
 
       const response = await axios.get(
-        "https://rescue-bite-server-k8ivjrkwo-amols-projects-604b6fbf.vercel.app/provider_history_prev",
+        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_history_prev",
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-            
-            "Access-Control-Allow-Origin":"*"
-          
           },
+
           params: {
             providerId,
           },
