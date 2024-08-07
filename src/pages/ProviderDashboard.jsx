@@ -45,26 +45,23 @@ const Dashboard = () => {
         throw new Error("No token found");
       }
 
-      const response1 = await axios.get(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_id",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${yourToken}`,
-          },
-        }
-      );
+      const response1 = await axios.get("https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/provider_id", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       // const decodedToken = jwtDecode(token);
       const providerId = response1.id;
       // console.log("while calling : "+ decodedToken);
 
       const response = await axios.get(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_history_curr",
+        "https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/provider_history_curr",
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${yourToken}`,
+            Authorization: `Bearer ${token}`,
           },
           params: {
             providerId,

@@ -46,7 +46,7 @@ const Dashboard = () => {
       }
 
       const response1 = await axios.get(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_id",
+        "https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/provider_id",
 
         {
           headers: {
@@ -61,7 +61,7 @@ const Dashboard = () => {
       // console.log("while calling : "+ decodedToken);
 
       const response = await axios.get(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_history_prev",
+        "https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/provider_history_prev",
         {
           headers: {
             "Content-Type": "application/json",

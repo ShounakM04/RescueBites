@@ -49,15 +49,12 @@ const ConsumerRequestCards = ({ data, dataType, refreshData }) => {
       return;
     }
 
-    // "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/update_count"
+    // "http://localhost:3001"
     try {
-      await axios.post(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/update_count",
-        {
-          food_id: selectedRequest.food_id,
-          count: numPeopleInt,
-        }
-      );
+      await axios.post("https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/update_count", {
+        food_id: selectedRequest.food_id,
+        count: numPeopleInt,
+      });
 
       const updatedPeopleCount = selectedRequest.people_count - numPeopleInt;
       setVisibleData((prevData) =>

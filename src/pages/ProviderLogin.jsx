@@ -34,7 +34,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_signup",
+        "https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/provider_signup",
         {
           name,
           address,
@@ -56,7 +56,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://rescue-bite-server-cusm09jr6-amols-projects-604b6fbf.vercel.app/provider_signin",
+        "https://rescue-bite-server-nt5i27bs5-amols-projects-604b6fbf.vercel.app/provider_signin",
         {
           name: signInName,
           email: signInEmail,
