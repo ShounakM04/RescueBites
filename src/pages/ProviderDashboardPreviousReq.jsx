@@ -71,7 +71,13 @@ const Dashboard = () => {
         }
       });
 
-      setFoodDetails(response.data);
+      if (response.data.length === 0) {
+        // Handle case where no food details are found for the provider
+        setFoodDetails([]);
+        console.log("No food details found for the provider.");
+      } else {
+        setFoodDetails(response.data);
+      }
     } catch (error) {
       setError(true);
       console.error("Error fetching food details:", error);

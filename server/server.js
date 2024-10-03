@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "dbms",
-  password: "AmPpg@123",
+  password: "",
   port: 5432,
 });
 
@@ -197,7 +197,7 @@ app.get('/provider_history_curr', verifyToken, async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM foodDetails WHERE provider_id = $1", [providerId]);
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "No food details found for this provider" });
+      return res.status(200).json([]);
     }
     res.status(200).json(result.rows);
   } catch (err) {
